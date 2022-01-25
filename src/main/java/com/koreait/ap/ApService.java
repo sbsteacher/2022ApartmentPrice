@@ -1,5 +1,6 @@
 package com.koreait.ap;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,14 +62,16 @@ public class ApService {
         ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode jsonNode = null;
         ApartmentInfoEntity[] list = null;
+        List<ApartmentInfoEntity> list2 = null;
         try {
             jsonNode = om.readTree(result);
-            list = om.treeToValue(jsonNode.path("response").path("body").path("items").path("item"), ApartmentInfoEntity[].class);
+            //list = om.treeToValue(jsonNode.path("response").path("body").path("items").path("item"), ApartmentInfoEntity[].class);
+            list2 = om.convertValue(jsonNode.path("response").path("body").path("items").path("item"), new TypeReference<List<ApartmentInfoEntity>>() {});
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        for(ApartmentInfoEntity item : list) {
+        for(ApartmentInfoEntity item : list2) {
             System.out.println(item);
         }
     }
