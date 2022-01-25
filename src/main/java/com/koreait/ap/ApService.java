@@ -50,12 +50,7 @@ public class ApService {
         RestTemplate rest = new RestTemplate();
         rest.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
-
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
-
-        ResponseEntity<String> responseEntity = rest.exchange(builder.toUriString(), HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> responseEntity = rest.exchange(builder.toUriString(), HttpMethod.GET, null, String.class);
         String result = responseEntity.getBody();
         //System.out.println("result : " + result);
 
