@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 public class ApartmentInfoEntity {
     private int iapart;
-    @JsonProperty(value = "거래금액", access = JsonProperty.Access.WRITE_ONLY) private String dealamount;
+    @JsonProperty("거래금액") private String dealamount;
     @JsonProperty("건축년도") private String buildyear;
     @JsonProperty("년") private String dealyear;
     @JsonProperty("월") private String dealmonth;
@@ -22,4 +22,8 @@ public class ApartmentInfoEntity {
     @JsonProperty("층") private int floor;
     private int locationcode;
     @JsonProperty("도로명시군구코드") private String excd;
+
+    public void setDealamount(String dealamount) {
+        this.dealamount = dealamount.replaceAll(",", "").trim();
+    }
 }

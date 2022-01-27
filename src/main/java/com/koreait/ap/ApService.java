@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.koreait.ap.model.ApartmentInfoDto;
 import com.koreait.ap.model.ApartmentInfoEntity;
 import com.koreait.ap.model.LocationCodeEntity;
 import com.koreait.ap.model.SearchDto;
@@ -66,11 +67,19 @@ public class ApService {
             e.printStackTrace();
         }
 
+        if(list2.size() == 0) { return; }
+
+        LocationCodeEntity codeEntity = mapper.selLocation(dto);
+
+        ApartmentInfoDto apartDto = new ApartmentInfoDto();
+        apartDto.setLocationcode(codeEntity.getCode());
+        apartDto.setApartmentInfoList(list2);
+        mapper.insApartmentInfoForeach(apartDto);
+
+        /*
         for(ApartmentInfoEntity item : list2) {
-            String dealAmaount = item.getDealamount();
-            dealAmaount = dealAmaount.replaceAll(",", "");
-            item.setDealamount(dealAmaount);
             mapper.insApartmentInfo(item);
         }
+        */
     }
 }
