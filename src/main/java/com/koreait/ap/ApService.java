@@ -67,7 +67,10 @@ public class ApService {
         }
 
         for(ApartmentInfoEntity item : list2) {
-            System.out.println(item);
+            String dealAmaount = item.getDealamount();
+            dealAmaount = dealAmaount.replaceAll(",", "");
+            item.setDealamount(dealAmaount);
+            mapper.insApartmentInfo(item);
         }
     }
 }
