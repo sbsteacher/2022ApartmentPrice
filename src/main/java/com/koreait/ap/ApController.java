@@ -19,7 +19,7 @@ public class ApController {
     }
 
     @PostMapping("/result")
-    public void result(SearchDto dto) {
-        service.getData(dto);
+    public void result(Model model, SearchDto dto) {
+        model.addAttribute("list", service.getData(dto));
     }
 }

@@ -32,6 +32,20 @@
         </foreach>
     </insert>
 
+    <select id="selApartmentInfoList" resultType="ApartmentInfoVo">
+       SELECT   A.iapart, A.dong, A.jibun, A.apartmentname, A.dealamount
+              , A.buildyear, A.dealyear, A.dealmonth, A.dealday, A.areaforexclusiveuse
+              , A.`floor`
+              , B.nm AS locationname
+         FROM apartment_info A
+         LEFT JOIN location_code B
+           ON A.locationcode = B.`code`
+        WHERE A.excd = #{excd}
+          AND A.dealyear = #{year}
+          AND A.dealmonth = #{month}
+        ORDER BY A.dealamount DESC
+    </select>
+
 
     <select id="selLocationList" resultType="LocationCodeEntity">
         SELECT * FROM location_code
